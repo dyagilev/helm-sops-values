@@ -62,7 +62,7 @@ ingress:
     servicePort: 80
 configmap:
     application:
-        DB_HOST: postgres
-        DB_NAME: postgres
-        DB_USERNAME: postgres
-        DB_PASSWORD: AFnw93enfqidnq
+      DB_HOST: postgres
+      DB_NAME: postgres
+      DB_USERNAME: postgres
+      DB_PASSWORD: AFnw93enfqidnq

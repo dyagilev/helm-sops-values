@@ -19,6 +19,9 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           image: {{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}
+          command: ["/bin/bash"]
+          args:
+            ['-c', 'tail -f /dev/null']
           imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
           env:
             - name: TZ
