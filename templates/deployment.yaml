@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "news.name" . }}
+  labels: {{- include "news.labels" . | nindent 4 }}
+  annotations:
+    {{- if .Values.deployment.deploymentAnnotations }}
+    {{- toYaml .Values.deployment.deploymentAnnotations | nindent 6 }}
+    {{- end }}
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  template:
+    metadata:
+      labels: {{- include "news.selectorLabels" . | nindent 8 }}
+    spec:
+      imagePullSecrets:
+        - name: regcred          
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}
+          imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
+          env:
+            - name: TZ
+              value: Europe/Moscow
+          volumeMounts:
+          {{- tpl .Values.deployment.volumeMounts . | nindent 10 }}
+          ports:
+            - name: news
+              containerPort: {{ .Values.deployment.port }}
+              protocol: TCP
+          {{ with .Values.deployment.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              path: {{ .path }}
+              port: {{ .port }}
+            initialDelaySeconds: {{ .initDelay }}
+            failureThreshold: {{ .failThreshold }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{ end }}
+          {{ with .Values.deployment.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              path: {{ .path }}
+              port: {{ .port }}
+            initialDelaySeconds: {{ .initDelay }}
+            failureThreshold: {{ .failThreshold }}
+            periodSeconds: {{ .readnessPriod }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{ end }}
+          {{ with .Values.deployment.startupProbe }}
+          startupProbe:
+            httpGet:
+              path: {{ .path }}
+              port: {{ .port }}
+            initialDelaySeconds: {{ .initDelay }}
+            periodSeconds: {{ .periodSeconds }}
+            failureThreshold: {{ .failThreshold }}
+          {{ end }}
+          resources:
+      {{- toYaml .Values.deployment.resources | nindent 12 }}
+      restartPolicy: {{ .Values.deployment.restartPolicy }}
+      volumes: {{- tpl .Values.deployment.volume . | nindent 8 }}
+  selector:
+    matchLabels: {{- include "news.selectorLabels" . | nindent 6 }}

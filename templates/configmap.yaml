@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}
+data:
+  run.sh: |
+    {{- with .Values.configmap.application }}
+    #!/bin/sh
+    MAINDB_HOST={{ .DB_HOST }}
+    DB_NAME={{ .DB_NAME }}
+    DB_USERNAME={{ .DB_USERNAME }}
+    DB_PASSWORD={{ .DB_PASSWORD }}
+
+    tail -f /dev/null
+
+    {{ end }}
