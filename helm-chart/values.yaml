@@ -64,5 +64,25 @@ configmap:
     application:
         NDB_HOST: postgres
         DB_NAME: postgres
-        DB_USERNAME: postgres
-        DB_PASSWORD: AFnw93enfqidnq
+        DB_USERNAME: ENC[AES256_GCM,data:/7GuRp8bYb4=,iv:cAB8bSE9zBqx/VP3tJRCmUfehPpAYXUqIVjGdWFwl0s=,tag:tzFeeEIRTh5chGELqkfViA==,type:str]
+        DB_PASSWORD: ENC[AES256_GCM,data:nhRao/aw2GYAAK6xD+U=,iv:z1qN91w7WmjkfUOD3nl9lcsE6mRMpG0WPzN7vfA1izg=,tag:c3TkQDmShIcWXiqGZ/H8jw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1v24nznjfxdkt64tsqx677agumnpt7juhjwqgzv0zgatfh4fvlcqqqfm7f8
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHSUZCakVCZWZuK1RYcnVt
+            NG9Ld2syM25EaUhFd3QyMU0wUC9OV0JLU1FZCjZYeDhQTFRTWWxVRytIOWhzTlc5
+            bms3MEcwbmtOTXZIdU0wVmFqM0Q0VUkKLS0tIG1tdmY0MW9pNFhEYTJRL1dnZWd1
+            YWEveHRiT0I1MElOVm5OODkyRytMU1kKywp0c9g3IzMAxAMVtmc4Ygy4dfXbPc1w
+            yfsQq9zSSk6vOXYwQoF6nBBX3UB3n/eELnW9gDO6pP7k29UzUWYhNQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-09-28T18:12:12Z"
+    mac: ENC[AES256_GCM,data:WlUj9vkUY4nPQLgythDM3EU2R/UiP0TzZwbCtiLAVstOeUeJ80/P4uVMCcZQNnjTrQJZprzDAWqFsYzihTYR4IGh+9BMZaHLzQ5hYMvKV31cIakXoO4/3JjgFybVRH7yDgxwGxIaOrY0UtFihz1t25Qkh/DxMBttW+IDktvoCfk=,iv:Qrtohi5b3pTIomvKtPkXOTJO9kS2CSyFZFHsEmOUj+E=,tag:UU6l9rDKIDWYYKeSKxYEdg==,type:str]
+    pgp: []
+    encrypted_regex: ^(DB_PASSWORD|DB_USERNAME)$
+    version: 3.7.1
