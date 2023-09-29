@@ -35,12 +35,12 @@ deployment:
             name: {{ .Chart.Name }}
             defaultMode: 0775
             items:
-              - key: app.env
-                path: app.env
+              - key: env.app
+                path: env.app
     volumeMounts: |-
         - name: {{ .Chart.Name }}
-          mountPath: /opt/app.env
-          subPath: app.env
+          mountPath: /opt/env.app
+          subPath: env.app
 service:
     type: ClusterIP
     port: 80
