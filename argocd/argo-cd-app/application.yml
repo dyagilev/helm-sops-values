@@ -17,9 +17,9 @@ spec:
         #- values.yaml
         - secrets+age-import:///helm-secrets-private-keys/key.asc?values.enc.yaml
 
-      values: |
-        deployment:
-            replicaCount: 2
+      # values: |
+      #   deployment:
+      #       replicaCount: 2
   
   destination:
     server: https://kubernetes.default.svc
