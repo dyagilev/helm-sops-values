@@ -21,12 +21,7 @@ deployment:
     #   failThreshold: 3
     #   readnessPriod: 10
     #   timeoutSeconds: 10
-    # startupProbe:
-    #   path: /actuator/health
-    #   port: 8080
-    #   periodSeconds: 60
-    #   failThreshold: 10
-    # resources:
+    #resources:
     #   limits:
     #     cpu: 0.8
     #     memory: 3072Mi
@@ -40,12 +35,12 @@ deployment:
             name: {{ .Chart.Name }}
             defaultMode: 0775
             items:
-              - key: env.app
-                path: env.app
+              - key: app.env
+                path: app.env
     volumeMounts: |-
         - name: {{ .Chart.Name }}
-          mountPath: /opt/env.app
-          subPath: env.app
+          mountPath: /opt/app.env
+          subPath: app.env
 service:
     type: ClusterIP
     port: 80
@@ -62,10 +57,10 @@ ingress:
     servicePort: 80
 configmap:
     application:
-        NDB_HOST: postgres
+        DB_HOST: localhost
         DB_NAME: postgres
-        DB_USERNAME: ENC[AES256_GCM,data:/7GuRp8bYb4=,iv:cAB8bSE9zBqx/VP3tJRCmUfehPpAYXUqIVjGdWFwl0s=,tag:tzFeeEIRTh5chGELqkfViA==,type:str]
-        DB_PASSWORD: ENC[AES256_GCM,data:nhRao/aw2GYAAK6xD+U=,iv:z1qN91w7WmjkfUOD3nl9lcsE6mRMpG0WPzN7vfA1izg=,tag:c3TkQDmShIcWXiqGZ/H8jw==,type:str]
+        DB_USERNAME: ENC[AES256_GCM,data:wJxHCwPFITY=,iv:s/ev3eEyDqYvsli1//h72BcEQj92CzQDCzfMmAAuDNg=,tag:a1jcXXF7YLUF6dhA7gIYFA==,type:str]
+        DB_PASSWORD: ENC[AES256_GCM,data:sw90lPGXXqTvmXSmtA==,iv:SDhoRuPyEEYcuKTMmcQ4Q82eNY7G5xw+n4DAUwXKpk8=,tag:S9n0RO1FyaYHdDbXZkA25g==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -75,14 +70,14 @@ sops:
         - recipient: age1v24nznjfxdkt64tsqx677agumnpt7juhjwqgzv0zgatfh4fvlcqqqfm7f8
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHSUZCakVCZWZuK1RYcnVt
-            NG9Ld2syM25EaUhFd3QyMU0wUC9OV0JLU1FZCjZYeDhQTFRTWWxVRytIOWhzTlc5
-            bms3MEcwbmtOTXZIdU0wVmFqM0Q0VUkKLS0tIG1tdmY0MW9pNFhEYTJRL1dnZWd1
-            YWEveHRiT0I1MElOVm5OODkyRytMU1kKywp0c9g3IzMAxAMVtmc4Ygy4dfXbPc1w
-            yfsQq9zSSk6vOXYwQoF6nBBX3UB3n/eELnW9gDO6pP7k29UzUWYhNQ==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAwQUJIaDZUcURVNGVETnhK
+            QzU4M3dnaHhlSlVpNzhNRUFUNjEwMUIrUWhVCnMrWWI1dVBnUXg1VnBSY3ZyUFkw
+            a1pzQ1hJOE42TWNxb3FhK1oveGF1QWMKLS0tIG02WDJ0SkNqcU5xV0llRk1jTSth
+            eXZZWjhYakZrS0F2VjBHTzRRZlVOVFkKtNpm9d0V7PWG81N4LbGzmG7RnRvKCfGK
+            x/+xCWwxAdgkUYvPWBZx2DJ+JFTmiqkHLLz6EpGZBDveJ+2D1y29RA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-09-28T18:12:12Z"
-    mac: ENC[AES256_GCM,data:WlUj9vkUY4nPQLgythDM3EU2R/UiP0TzZwbCtiLAVstOeUeJ80/P4uVMCcZQNnjTrQJZprzDAWqFsYzihTYR4IGh+9BMZaHLzQ5hYMvKV31cIakXoO4/3JjgFybVRH7yDgxwGxIaOrY0UtFihz1t25Qkh/DxMBttW+IDktvoCfk=,iv:Qrtohi5b3pTIomvKtPkXOTJO9kS2CSyFZFHsEmOUj+E=,tag:UU6l9rDKIDWYYKeSKxYEdg==,type:str]
+    lastmodified: "2023-09-29T09:26:42Z"
+    mac: ENC[AES256_GCM,data:CXsN44Dulb19H1+cK34/BsaPH47eBl0OdVH6lppR/cJBkUxMG3/OjXIW9D8o1NN7Wka+7ZqDEFNzKaVfX60lPnouW4IcWHyLggK9ekJtSkeAl1JQ02Adykb+YLaDnS4J6pSEiVIMuate/D5QEXcQTukydk9nmcDVd7ylr1u1TSk=,iv:aBYjutjbSBAKdjL7D2oTPN7X/e+aizVQD1qw4ShLOlk=,tag:7ije8LB3GCabaGkRfkc+xw==,type:str]
     pgp: []
     encrypted_regex: ^(DB_PASSWORD|DB_USERNAME)$
     version: 3.7.1
