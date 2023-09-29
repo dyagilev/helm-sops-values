@@ -4,8 +4,8 @@ metadata:
   name: helm-app
   namespace: argocd
   # Finalizer that ensures that project is not deleted until it is not referenced by any application
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  # finalizers:
+  #   - resources-finalizer.argocd.argoproj.io
 spec:
   project: helm-project
   source:
@@ -18,8 +18,9 @@ spec:
         - secrets+age-import:///helm-secrets-private-keys/key.asc?values.enc.yaml
 
       values: |
-        replicaCount: 2
-                
+        deployment:
+            replicaCount: 2
+  
   destination:
     server: https://kubernetes.default.svc
     namespace: test
