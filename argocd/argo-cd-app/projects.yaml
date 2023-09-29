@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: helm-project
+  namespace: argocd
 spec:
   sourceRepos:
     - https://github.com/dyagilev/helm-sops-values.git
