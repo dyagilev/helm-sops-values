@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Chart.Name }}
 data:
-  env.app: |
+  app.env: |
     {{- with .Values.configmap.application }}
     MAINDB_HOST={{ .DB_HOST }}
     DB_NAME={{ .DB_NAME }}
