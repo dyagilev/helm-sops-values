@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helm-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/dyagilev/helm-sops-values
+    targetRevision: HEAD
+    path: helm-chart
+    helm:
+      valueFiles:
+        #- values.yaml
+        - secrets+age-import:///helm-secrets-private-keys/key.asc?values.enc.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: test
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
