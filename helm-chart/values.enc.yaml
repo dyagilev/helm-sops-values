@@ -21,12 +21,7 @@ deployment:
     #   failThreshold: 3
     #   readnessPriod: 10
     #   timeoutSeconds: 10
-    # startupProbe:
-    #   path: /actuator/health
-    #   port: 8080
-    #   periodSeconds: 60
-    #   failThreshold: 10
-    # resources:
+    #resources:
     #   limits:
     #     cpu: 0.8
     #     memory: 3072Mi
@@ -40,18 +35,20 @@ deployment:
             name: {{ .Chart.Name }}
             defaultMode: 0775
             items:
-              - key: run.sh
-                path: run.sh
+              - key: app.env
+                path: app.env
     volumeMounts: |-
         - name: {{ .Chart.Name }}
-          mountPath: /opt/run.sh
-          subPath: run.sh
+          mountPath: /opt/app.env
+          subPath: app.env
+
 service:
     type: ClusterIP
     port: 80
     targetPort: 8080
     protocol: TCP
     name: news
+    
 ingress:
     enabled: false
     name: news
@@ -60,6 +57,7 @@ ingress:
     pathType: Prefix
     path: /news
     servicePort: 80
+
 configmap:
     application:
         NDB_HOST: postgres
