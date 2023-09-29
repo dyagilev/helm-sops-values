@@ -1,66 +1,9 @@
-env: news
-tier: backend
-deployment:
-    replicaCount: 1
-    deploymentAnnotations: null
-    image:
-        repository: ubuntu
-        tag: "22.04"
-        pullPolicy: IfNotPresent
-    port: 8080
-    # livenessProbe:
-    #   path: /actuator/health
-    #   port: 8080
-    #   initDelay: 10 #60
-    #   failThreshold: 3
-    #   timeoutSeconds: 5
-    # readinessProbe:
-    #   path: /actuator/health
-    #   port: 8080
-    #   initDelay: 10 #30
-    #   failThreshold: 3
-    #   readnessPriod: 10
-    #   timeoutSeconds: 10
-    #resources:
-    #   limits:
-    #     cpu: 0.8
-    #     memory: 3072Mi
-    #   requests:
-    #     cpu: 0.7
-    #     memory: 2560Mi
-    restartPolicy: Always
-    volume: |-
-        - name: {{ .Chart.Name }}
-          configMap:
-            name: {{ .Chart.Name }}
-            defaultMode: 0775
-            items:
-              - key: app.env
-                path: app.env
-    volumeMounts: |-
-        - name: {{ .Chart.Name }}
-          mountPath: /opt/app.env
-          subPath: app.env
-service:
-    type: ClusterIP
-    port: 80
-    targetPort: 8080
-    protocol: TCP
-    name: news
-ingress:
-    enabled: false
-    name: news
-    class: nginx
-    url: news
-    pathType: Prefix
-    path: /news
-    servicePort: 80
 configmap:
     application:
         DB_HOST: localhost
         DB_NAME: postgres
-        DB_USERNAME: ENC[AES256_GCM,data:nGzfz3yMFi4=,iv:RwrJDJB98Q0svIgAVun8LsfPZXqNqmKOoUs2UYO4w8U=,tag:tBH7HLvjqIHDepeOR8KNeA==,type:str]
-        DB_PASSWORD: ENC[AES256_GCM,data:E0+zh7aC6GQ8GOnKAA==,iv:qP70dgYBRhDUQHQQQGQmpYyrXGLE8YKSwOHyX+g65+E=,tag:b4mc48QpEyyQuvgf1OTRpw==,type:str]
+        DB_USERNAME: ENC[AES256_GCM,data:eaWb6HWg/UM=,iv:+hGqoh6b6wJnfCK2AGHZ5QgvBAQz1HGbmQpgxy7hAB8=,tag:JN3dnwYPVgK6LJX1hRIXKw==,type:str]
+        DB_PASSWORD: ENC[AES256_GCM,data:KFaVWjuRMF7p+sCk8g==,iv:KDSTb2Qjdtlj2Nv60vUl+tx9SCbtMnMd6+YLZOt1Dv4=,tag:5JjF4v415cCU5bYLKi17zQ==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -70,14 +13,14 @@ sops:
         - recipient: age1v24nznjfxdkt64tsqx677agumnpt7juhjwqgzv0zgatfh4fvlcqqqfm7f8
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBqb2hBWjFrRy9NMXJIbHpI
-            MGkvYzFydFJPZkI1cm50aElPcDJYa29QVWc4CmphUnNSY2dvYnh5TnlITkNoWVl4
-            SG1QN1FIRlk3VUlyMVFQNWhhUkJQaUUKLS0tIFMzU3IxK3JoblJmNVp6MnprRGp3
-            T0tzS3hFWVh4V3QyeGNyUVNjbVVyeU0KtAcNkJpwli76+RqrHr6qwLN+TcDcUbKh
-            vTG/zrbuzIhkSB1T5FclSilZYs56IvfnMgonYIdPfwH116ldQB8RHg==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBTM2tRb2pTU1VyYVNxc3ZW
+            dEJzUnRjQTJSV0FFdHlGMDJ3S3BkMGV5RUdJCjl3UXpzNTN1NnBvQTA3YlJQV0Qv
+            UTB2Y2tjVWYrWnVOZjZXdU9XWWpTa1EKLS0tIFU4MmIrT1lOTGVsaWRFdmdhZlp5
+            QjNXRVc0QkZPVmJxWlRBYkNlS0F6VVUKGCLOgBOFx0YVaX3V3CX6scBuAEbmd+p/
+            R6/B8FuFhGTNaabUStdTSWNXwj3+phUwnq/nRstwoSCkYrQnN3heIA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-09-29T09:36:38Z"
-    mac: ENC[AES256_GCM,data:Mqi5voGiwP0J05ITtyjEL97NAilPmpHGgBX1z8d64mBbMsReTfxaDPMVe7WXLFE8yqKMnYIWoFWrYu5v3v7yasl3R83+YZZoBgejTNkD2vA1syh9aExThoeNh9HtVxETXNsngW2tJFi0YrPZH6hBXr45RtI3MPxE2RYjq+WoF5I=,iv:32hl/tHDhY9/eq5PtG+Lm+TDGoEOB3oVZdYK7moocbM=,tag:FGX7Uygxr2bHN9xeOfclcg==,type:str]
+    lastmodified: "2023-09-29T09:44:13Z"
+    mac: ENC[AES256_GCM,data:P1C1pgGSpj2qhvYvO7W9eKoZBxpEKJwlTbs1w9w6QX6eYDkBkC1a5XwYYQghu0kCe15IBXqc5KIMgR9GI5Uw1ThQLoBuQWLfYB25QKsZ3FdE+5LN+UxqqNdqEZAJSpFUnmxXXdzxFONSBWU9COBtszQKrAMzfCmnUFaaxDN1Mt8=,iv:ZxUwx6Ni/RubT7vrsAMwhEHeF9w82YuHmGIUDtbZxFg=,tag:lTUXdDd2gncj0f24pLgUhw==,type:str]
     pgp: []
     encrypted_regex: ^(DB_PASSWORD|DB_USERNAME)$
     version: 3.7.1
